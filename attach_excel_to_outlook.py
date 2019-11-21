@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import date
 
 to_email = """
-Waldron, Austin <awaldron@oceanair.net>;
+Waldron, Austin <awaldron@oceanair.net>; ajwaldro@gmail.com
 """
 
 cc_email = """
