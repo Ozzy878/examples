@@ -1,5 +1,10 @@
 """Set row heights and align text within the cell"""
 import win32com.client as win32
+from pathlib import Path
+
+output_file_name = "row_height_format"
+output_folder = "S://GitHub/examples/output_files"
+output_file = Path('{}/{}.xlsx'.format(output_folder, output_file_name))
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 
@@ -19,5 +24,5 @@ ws.Range("2:2").VerticalAlignment = win32.constants.xlCenter
 # Alternately, you can autofit all rows in the worksheet
 # ws.Rows.AutoFit()
 
-wb.SaveAs('row_height.xlsx')
+wb.SaveAs(str(output_file), FileFormat=51, ConflictResolution=2)
 excel.Application.Quit()

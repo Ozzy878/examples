@@ -1,5 +1,11 @@
 """driving.py"""
 import win32com.client as win32
+from pathlib import Path
+
+output_file_name = "built_with_python"
+output_folder = "S://GitHub/examples/output_files"
+output_file = Path('{}/{}.xlsx'.format(output_folder, output_file_name))
+
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 excel.Visible = True
@@ -20,3 +26,6 @@ ws.Range("A4:D4").Value = [i for i in range(9, 13)]
 ws.Cells(5, 4).Formula = '=SUM(A2:D4)'
 ws.Cells(5, 4).Font.Size = 16
 ws.Cells(5, 4).Font.Bold = True
+
+wb.SaveAs(str(output_file), FileFormat=51, ConflictResolution=2)
+excel.Application.Quit()

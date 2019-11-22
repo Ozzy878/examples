@@ -122,6 +122,7 @@ def run_excel(args):
 
             logolookup = {'Applied Materials': 'AMAT', 'Electronic Arts': 'EA',
                           'Hewlett-Packard': 'HP', 'KLA-Tencor': 'KLA'}
+
             if "Company Name" in newdata[0]:
                 cindx = newdata[0].index("Company Name")
                 newdata[0][cindx + 1:cindx + 1] = ["Logo Name"]

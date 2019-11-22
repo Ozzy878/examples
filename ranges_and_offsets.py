@@ -7,7 +7,7 @@ from pathlib import Path
 
 output_file_name = "ranges_and_offsets"
 output_folder = "S://GitHub/examples/output_files"
-output_file = Path('{}/{}.xls'.format(output_folder, output_file_name))
+output_file = Path('{}/{}.xlsx'.format(output_folder, output_file_name))
 
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 excel.Visible = True
@@ -25,6 +25,6 @@ try:
 except:
     ws.Range("A6:B7;A9:B10").Value = "A6:B7,A9:B10"
 
-wb.SaveAs(str(output_file), FileFormat=56, ConflictResolution=2)
+wb.SaveAs(str(output_file), FileFormat=51, ConflictResolution=2)
 
 excel.Application.Quit()

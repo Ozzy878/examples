@@ -5,9 +5,14 @@ insert additional data fields and build 5 pivot tables
 import win32com.client as win32
 import sys
 import itertools
+from pathlib import Path
 
 win32c = win32.constants
 tablecount = itertools.count(1)
+
+output_file_name = "ABCDCatering_Analysis_V2"
+output_folder = "S://GitHub/examples/output_files"
+output_file = Path('{}/{}.xlsx'.format(output_folder, output_file_name))
 
 
 def add_pivot(wb, sourcedata, title, filters=(), columns=(),
@@ -61,7 +66,7 @@ def run_excel():
     excel.Visible = True
 
     try:
-        wb = excel.Workbooks.Open('ABCDCatering.xls')
+        wb = excel.Workbooks.Open('S:/GitHub/examples/resource_files/ABCDCatering.xls')
     except:
         print("Failed to open spreadsheet ABCDCatering.xls")
         sys.exit(1)
@@ -181,12 +186,13 @@ def run_excel():
                        rows=("Food Category",),
                        sumvalue="Sum of Quantity",
                        sortfield=("Food Category", win32c.xlDescending))
+
     wb.Sheets("Unit Sales by Food Category").PivotTables(ptname).PivotFields("Fiscal Quarter").CurrentPage = "2009-Q4"
 
     if int(float(excel.Version)) >= 12:
-        wb.SaveAs('newABCDCatering.xlsx', win32c.xlOpenXMLWorkbook)
+        wb.SaveAs(str(output_file), FileFormat=51, ConflictResolution=2)
     else:
-        wb.SaveAs('newABCDCatering.xls')
+        wb.SaveAs(str(output_file), FileFormat=56, ConflictResolution=2)
 
     excel.Application.Quit()
 
