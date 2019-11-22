@@ -12,7 +12,7 @@ john_doe = []
 cwd = os.getcwd()
 excel = win32.gencache.EnsureDispatch('Excel.Application')
 
-fpjohn_doeaustin = open('output_files/austin_johndoe.csv', 'w')
+fpjohn_doeaustin = open('output_files/Austin_John-Payroll.csv', 'w')
 
 for xlsxfile in xlxsfiles:
     wb = excel.Workbooks.Open(cwd + "\\" + xlsxfile)
@@ -48,6 +48,6 @@ fpjohn_doeaustin.write("File,John,Austin\n")
 for i in range(len(xlxsfiles)):
     fpjohn_doeaustin.write("%s,%0.2f,%0.2f\n" % (xlxsfiles[i], john_doe[i], austin[i]))
 
-print("Wrote john_doeaustin.csv")
+print("Wrote Austin_John-Payroll.csv")
 
 excel.Application.Quit()
