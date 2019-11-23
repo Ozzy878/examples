@@ -1,46 +1,53 @@
-#
-# payrates.py
-# Report payrates for two employees across multiple spreadsheets
-#
+"""payrates.py
+Report payrates for two employees across multiple spreadsheets"""
 import win32com.client as win32
 import glob
 import os
 
-xlxsfiles = sorted(glob.glob("*.xlsx"))
-print ("Reading %d files..."%len(xlxsfiles))
+xlxsfiles = sorted(glob.glob("Payroll/*.xlsx"))
+print("Reading %d files..." % len(xlxsfiles))
 
-steve = []
-jeff = []
+austin = []
+john_doe = []
 cwd = os.getcwd()
 excel = win32.gencache.EnsureDispatch('Excel.Application')
-fpjeffsteve = open('jeffsteve.csv','w')
+
+fpjohn_doeaustin = open('output_files/Austin_John-Payroll.csv', 'w')
+
 for xlsxfile in xlxsfiles:
-    wb = excel.Workbooks.Open(cwd+"\\"+xlsxfile)
+    wb = excel.Workbooks.Open(cwd + "\\" + xlsxfile)
     try:
         ws = wb.Sheets('PAYROLL')
     except:
-        print ("No sheet named 'PAYROLL' in %s, skipping"%xlsxfile)
-        jeff.append(0.0)
-        steve.append(0.0)
+        print("No sheet named 'PAYROLL' in %s, skipping" % xlsxfile)
+        john_doe.append(0.0)
+        austin.append(0.0)
         wb.Close()
+
         continue
+
     xldata = ws.UsedRange.Value
     names = [r[1] for r in xldata]
-    if u'SMITHFIELD, STEVE' in names:
-        indx = names.index(u'SMITHFIELD, STEVE')
-        steve.append(xldata[indx][4])
-    else:
-        steve.append(0)
 
-    if u'JOHNSON, JEFF' in names:
-        indx = names.index(u'JOHNSON, JEFF')
-        jeff.append(xldata[indx][4])
+    if u'WALDRON, AUSTIN' in names:
+        indx = names.index(u'WALDRON, AUSTIN')
+        austin.append(xldata[indx][4])
     else:
-        jeff.append(0)
+        austin.append(0)
+
+    if u'DOE, JOHN' in names:
+        indx = names.index(u'DOE, JOHN')
+        john_doe.append(xldata[indx][4])
+    else:
+        john_doe.append(0)
+
     wb.Close()
 
-fpjeffsteve.write ("File,Jeff,Steve\n")
+fpjohn_doeaustin.write("File,John,Austin\n")
+
 for i in range(len(xlxsfiles)):
-    fpjeffsteve.write ("%s,%0.2f,%0.2f\n"%(xlxsfiles[i],jeff[i],steve[i]))
-print ("Wrote jeffsteve.csv")
+    fpjohn_doeaustin.write("%s,%0.2f,%0.2f\n" % (xlxsfiles[i], john_doe[i], austin[i]))
+
+print("Wrote Austin_John-Payroll.csv")
+
 excel.Application.Quit()
