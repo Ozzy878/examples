@@ -11,7 +11,7 @@ excel = win32.gencache.EnsureDispatch('Excel.Application')
 excel.Visible = True
 
 try:
-    wb = excel.Workbooks.Open('ABCDCatering.xls')
+    wb = excel.Workbooks.Open('S:/GitHub/examples/resource_files/ABCDCatering.xls')
 except:
     print("Failed to open spreadsheet ABCDCatering.xls")
     sys.exit(1)
